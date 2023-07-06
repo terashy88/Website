@@ -1,0 +1,55 @@
+CSS GRID
+
+parent
+->define layout
+.container {
+display: grid;
+grid-template-columns: [row-1-start] 200px 2fr 20% 1fr; (default 1 coulmn, 20% of container, 100%-20%-200px and column2=2remaining space, coulmn4=1remainin spacem instead of 1fr-auto->fill reamining space
+                       repeat(4, 25% ); 4 columns every 25%
+                       repeat(auto-fit, 200px) ; koliko je velik zaslon toliko ih stavi u row,,,,npr 1200px->6
+                       repeat(auto-fit, minmax(300px, 1fr)); really responsive
+                       minmax(10px, 100px) 20% 2fr auto;   auto uzme preostali dio od 100%-20%-minmax-2fr
+ 			 auto-fit_derive atuomaticlly number of columns
+
+grid-template-rows: 5rem 2.5rem;  
+grid-column-gap: 20px ;
+grid-row-gap: 10px ;
+grid-template-areas: "header header header header"
+                     ". . main main"
+ 		     "footer footer footer footer";
+
+justify-items: center; (row positioning--star,end,stretch-default)
+align-items: center;   (columns positioning, stretch-default)
+
+justify-conternt: center; (row positioning,whole grid)
+align-content:center; (column/vertical whole grid)
+(child justify-self: center;
+       align-self:center;)
+
+}
+
+child
+->define position in layout
+.el3{
+grid-column-start:3; (our grid is split into 8 arena, line coulmn 3-5
+grid-column-end:5;
+                span 2; (column ide od 3 preko 2,dakle do 5)
+               
+grid-row-start:1;
+grid-wow-end:3;
+             -1; whole row 
+
+short:
+grid-row: 1/3;
+          1/span2;
+
+grid-area: 1 /3 / 3 /5  ;          (column+row) 1.grid-row-start, 2.grid-column-start, 3. grid-row-end, 4.grid-column-end
+
+-elements can be overlap,(bottom in css in up, but you can put z-index)
+
+el1{
+grid-area:footer;   (for grid-template-areas;)
+justify-self: center;
+align-self:center;
+
+} 

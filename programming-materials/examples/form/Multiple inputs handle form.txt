@@ -1,0 +1,102 @@
+MULTIPLE INPUTS HANDLE FORM
+
+EXAMPLE 1.
+import React, { useState } from 'react';
+
+const App = () => {
+
+  const [inputs, setInputs] = useState({
+    name: "",
+    email: ""
+  })
+
+  const changeHandle = e => {
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value
+    })
+  }
+
+
+
+  const submitHandle = e => {
+    e.preventDefault()
+    console.log(inputs)
+  }
+  
+  return (
+    <form onSubmit={submitHandle}>
+      <input type="text" name="name" value={inputs.name} onChange={changeHandle} />
+      <input type="email" name="email" value={inputs.email} onChange={changeHandle} />
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
+export default App;
+-------------------------------------------------------------
+EXAMPLE 2.
+
+1 INPUT, VISE PROPSaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+const [fields, setFields] = useState({});                                    -> set
+
+
+  const handleChangeInput = (id, event, email) => {
+    if (['received', 'price'].includes(event.target.name)) {                -> samo za "received i price"
+      handleReceivedData(id, event.target.name, event.target.value);
+    setFields({
+        ...fields,
+        [id]: { name: event.target.name, quantity: event.target.value, email:email },         -> setPropsa koje zelimo po idu: name, quantity,email         
+      });
+    }
+  };
+
+// ispise u obliku po idu:
+ispise: fields 
+{35: {…}, 36: {…}}
+
+{
+35: {name: "received", quantity: "11"},
+36: {name: "received", quantity: "55"}
+}
+
+
+
+<input
+  name="email"   
+  value={inputs.email}
+                                         id     event   email
+ onChange={(event) => handleChangeInput(row.id, event, email)}
+
+
+Koristimo npr quantity:
+      {fields[row?.id].quantity > 2 ? 'TODO: VALIDATION' : 'NESTO DIVLJE'}
+.............................................................................
+EXAMPLE 3.
+
+  // Set state for partner boolean input.
+  const [partnerChecked, setPartnerChecked] = useState({                                 -> SET
+    supplier: editRecord?.isSupplier,
+    customer: editRecord?.isCustomer,
+  });
+
+  // Method for partner input handling.
+  const handleChangeSupplier = (partnerType) => {                                       -> METODA KORISTI SET
+    partnerType === 'supplier' &&
+      setPartnerChecked({
+        ...partnerChecked,
+        supplier: !partnerChecked.supplier,
+      });
+    partnerType === 'customer' &&
+      setPartnerChecked({
+        ...partnerChecked,
+        customer: !partnerChecked.customer,
+      });
+  };
+
+      <BooleanInput
+          onChange={() => handleSupplier('supplier')}                                          ->inputi
+      <BooleanInput
+          onChange={() => handleSupplier('customer')}
+

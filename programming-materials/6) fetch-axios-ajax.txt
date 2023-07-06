@@ -1,0 +1,128 @@
+ AXIOS ``
+- npm install axios
+
+ HTTP REQUEST TO GET DATA
+- in componentDidMount
+
+primjer 1.
+- na serveru npr. na https://jsonplaceholder.typicode.com/users i zelimo ispisati ime u <li> il komponentu
+[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+
+- u nasoj komponenti fetchamo i listamo persons po imenu:
+
+import React from 'react';
+import axios from 'axios';
+
+export default class PersonList extends React.Component {
+  state = {
+    persons: []
+  }
+
+  componentDidMount() {
+    axios.get(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => {
+        const persons = res.data;
+        this.setState({ persons });
+      })
+  }
+
+  render() {
+    const post = this.state.persons.map(person => {
+                                        return <li>{person.name}</li>;                                 -> ispis <li>, nazovem kako zelim ovaj post(ubiti uzme person.name i stavlja u <li>)
+                                        return <Post key={person.id} title={person.name} />;           -> ispis komponente s propertisima: key i title
+                                          
+    };  
+    return (
+      <ul>
+         {post}
+      </ul>
+    )
+  }
+}
+--------------------------------------------------------------------------------
+primjer 2.
+- na serveru isto ali želimo ispisati samo prva 4 kontakta(slice) i dodati im author(toga nema, ima: id, name....)
+
+componentDidMount() {
+    axios.get(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => {
+        const persons = res.data.slice(0, 4);
+        const updatedPersons = persons.map(post =>{
+                                     return{
+                                         ...persons,
+                                         author:"mihael"                                 
+                            }}
+                                );
+        this.setState({ updatedPersons });
+      })
+---------------------------------------------------------------------------------------
+ POST TO SERVER
+
+export default class PersonList extends React.Component {
+  state = {
+       title:"",
+       content:",
+       author:"max"
+  }
+
+  postDataHandler = () => {
+         const data = {
+                       title:this.state.title,
+                       body:this.state.content,
+                       author:this.state.author
+                     };
+                          
+}
+    axios.post(`https://jsonplaceholder.typicode.com/users`, data)
+      .then(res => {
+        console.log(res);
+  render() {
+               <Component onclick={this.postDataHandler />}
+                                         
+
+------------------------------------------------------------------------------------------
+ DELETE REQIEST 
+
+-export default class PersonList extends React.Component {
+  state = {
+       title:"",
+       content:",
+       author:"max"
+  }
+
+  deletePostDataHandler = () => {
+         const data = {
+                       title:this.state.title,
+                       body:this.state.content,
+                       author:this.state.author
+                     };
+                          
+}
+    axios.delete(`https://jsonplaceholder.typicode.com/users`, this.props.id)
+      .then(res => {
+        console.log(res);
+  render() {
+               <Component onclick={this.deletePostDataHandler />}

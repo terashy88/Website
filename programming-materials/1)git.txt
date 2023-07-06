@@ -1,0 +1,52 @@
+GIT
+cd
+git init  //da se initilized
+git remote add origin [gitLink]  //prvi puta
+git remote -v      //ako radi add origin
+git add .   //dodaj sve
+git commit -m "First commit"   // 
+git push origin master        // push master directory to origin
+
+ls- List all the files in the current directory
+
+If your source code is in the different directory, you need to change the directory on git bash with command cd followed by directory or path.
+
+cd - To change the directory
+
+git init- This command initializes the git in the given path. You can see the .git hidden files after this command gets executed.
+
+git remote add origin [gitLink]- gitLink denote the place where your code is stored in the remote repository
+
+git add .- Add all the files in the local directory to the remote repository
+
+git commit -m "First commit"- It establishes a connection with local repository
+
+git push origin master- It establishes a connection with a remote repository and upload your source code or files to GitHub
+
+Note: If you get fatal: remote origin already exists which means the connection is already established.
+
+REACT
+
+npx create-react-app my-app(NAME)
+cd my-app
+npm start
+--------------------
+1) Navigate to the local project directory and create a local git repository:
+
+ git init
+
+2) Once that is successful, click on the 'Source Control' icon on the left navbar in VS-Code.One should be able to see files ready to be commit-ed. Press on 'Commit' button, provide comments, stage the changes and commit the files. Alternatively you can run from CLI
+
+git commit -m "Your comment"
+3) Now you need to visit your GitHub account and create a new Repository. Exclude creating 'README.md', '.gitIgnore' files. Also do not add any License to the repo. Sometimes these settings cause issue while pushing in.
+
+4) Copy the link to this newly created GitHub Repository.
+
+5) Come back to the terminal in VS-CODE and type these commands in succession:
+
+git remote add origin [Link to GitHub Repo>]     //maps the remote repo link to local git repo
+
+git remote -v                                  //this is to verify the link to the remote repo 
+
+git push -u origin master                      // pushes the commit-ed changes into the remo
+

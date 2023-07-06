@@ -1,0 +1,62 @@
+AXIOS
+-http request library
+-in React always componentDidMount
+
+1)npm i axios
+2)import axios from 'axios';
+
+-------------------------------
+PersonList.js
+state= {
+	persons: []
+}
+
+componentDidMount() {
+	axios.get(`https  neki link /users`)
+        .then (res=> {
+		this.setState= ({persons: res.data})
+}) 
+}
+-----------------
+render() {
+	return <ul>
+                   {this.state.persons.map (person => <li key={person.id}> person.name </li>)}
+	       <ul>
+}
+----------------------------------
+2(example
+app.js
+<Route exact
+               path ='/food/:name'
+	       render = {routeProps => <Food name={routeProps.match.params.name} />}
+               
+/>    
+
+Food.js
+render() {
+	const url=`https://source.unsplash.com/1600x900/?${this.props.name}`;
+ return(
+	<h1>i love to eat {this.props.name} </h1>
+	<img> srce={url} alt={this.props.name} </img>
+);
+}
+------------------------------------------------------------------------
+3.same like 2
+app.js
+<Route exact
+               path ='/food/:name'
+	       render = {routeProps => <Food {...routeProps} />}
+                ili
+               component = {Food} ali samo za 1
+               
+/> 
+
+Food.js
+render() {
+	const name= this.props.match.params.name;
+	const url=`https://source.unsplash.com/1600x900/?${name}`;
+ return(
+	<h1>i love to eat {name} </h1>
+	<img> srce={url} alt={name} </img>
+);
+}   

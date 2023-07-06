@@ -1,0 +1,49 @@
+ REDUX
+- state menagment similar to context
+
+1)npm install react-redux
+
+2) index.js napravimo STORE  ->globalized state
+                      ACTION ->NPR. increment
+		      REDUCER ->update our store
+                      DISPATCH
+INDEX.JS
+import {createStore} from "redux";
+
+-----------------------
+//ACTION
+const increment = () => {
+	return{    
+		type: "INCREMENT",
+    		text
+} }
+
+const decrement = () => {
+	return{    
+		type: "DECREMENT",
+    		text
+} }
+------------------------------------
+//REDUCER
+
+const counter = (state=0, action) => {
+	switch(action.type){    
+		case "INCREMENT":
+			return state+1;
+                case "DECREMENT":
+			return state-1;
+} }
+-------------------------------------------
+//STORE
+
+let store = createStore(counter);
+
+-------------------------------------------
+//display it in console
+
+store.subscribe(() => console.log(store.getState()));	
+
+-------------------------------------------------
+//DISPATCH
+
+store.dispatch( increment() );

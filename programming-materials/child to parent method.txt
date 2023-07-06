@@ -1,0 +1,67 @@
+Child=>Parent
+
+-pokrecemo method iz parent u children
+
+-parent->child props
+-child->parent also props
+
+-click on the button in child, execute methos from parent
+-child calls parents method
+--------------------------------------------------------------
+PARENT- napravimo props(greetHandler)od method(greetParent) u Children-component
+        i onda to koristimo u children(this.props.greetHandler)
+      - da je umjesto class u child samo func (props.greetHandler)
+
+class Parent extends Component {
+    state = {
+        parentName: 'Parent' 
+        return (
+            <div>
+                <Children greetHandler={this.greetParent} />
+            </div>
+        )}}
+-------------------------------------------------------------
+CHILDREN -na klik koristimo method iz parent
+
+class Children extends Component {
+    render() {
+        return (
+            <div>
+                <p>Children => Parent => App</p>
+                <button onClick={this.props.greetHandler}>Greet Parent</button>
+            </div>
+       )}}
+------------------------------------------------------------------
+PAREMETER
+PARENT-add parameter to method(greetParent(childName)
+
+ state = {
+        parentName: 'Parent'
+    }
+
+    greetParent = (childName) => {
+        alert(`Hello  ${this.state.parentName} from ${childName}`)
+    }
+
+    render() {
+        return (
+            <div>
+                <Children greetHandler={this.greetParent} />
+            </div>
+        )
+    }
+}
+--------------------------------
+CHILDREN-ARROW I U METHOD FROM PARENT ubacimo vrijednost za parameter
+(() => this.props.greetHandler('Child Name'))
+
+class Children extends Component {
+    render() {
+        return (
+            <div>
+                <p>Children => Parent => App</p>
+                <button onClick={() => this.props.greetHandler('Child Name')}>Greet Parent</button>
+            </div>
+        )
+    }
+}
