@@ -1,0 +1,284 @@
+kata ``
+
+LET/CONST/VAR
+-> VAR function scoped(vrijed u cijeloj funkciji)
+-> CONST/LET block scoped(vrijed samo u curly brackets {})
+-> const se ne mjenja! moze joj dati neku vrijednost i korisit ju, ali se nemre mjenjat
+-> var/let mozes mjenjat
+
+function arrayMadness(a, b) {  
+  var/const/let ime="mihael"                   -> mogu se koristi u cijeloj funkciji -> var je vredi po cijeloj fji, a const/let jer su u parent {} naspram child {} od if/else                              
+  if ( squareFirst > cubeSecond) { 
+    const a ="5"                               -> const a i let b se moze koristit samo u ovim curly brackets
+    let b ="6"
+    var result;                               -> varijabla var result se moze korist u cijeloj funkciji     
+    var/const/let ime="mihael"                     -> const/let  se mogu koristi jer su oni u parent {}
+  }
+  else {
+    result = false                       -> tu se moze koristi var result jer je to sve ista funkcija, ali se ne moze let a i const b se su oni u drugoj {}
+    var/const/let ime="mihael"    
+  }
+  return result, ime;                    -> moze se vratit var result(ista fja), var/const/let ime(isti {}), ali se ne mogu vratit const a i let b jer su u child {}                              
+}
+------------------------------------------------------------------
+FUNCTION + IF/ELSE
+1.nacin
+a = [1,2,4]
+a = [3,2,4]
+
+function arrayMadness(a, b) {
+  let result;
+  const cubeSecond = b.map( e => e*e*e).reduce((x,y) => x+y)
+  const squareFirst = a.map( e => e*e).reduce((x,y) => x+y)
+  if ( squareFirst > cubeSecond) { 
+    result = true
+  }
+  else {
+    result = false
+  }
+  return result;
+}
+
+console.log(arrayMadness(a, b));
+----------------------
+2.nacin TERNARY
+function arrayMadness(a, b) {
+  return a.reduce((x,y) => x + y ** 2, 0) > b.reduce((x,y) => x + y ** 3, 0) ? true : false
+}
+-------------------------------------------------
+REDUCE
+The reduce() method executes a reducer function (that you provide) on each element of the array, resulting in single output value.
+-> const reducer = (accumulator, currentValue) => accumulator + currentValue; 
+-> na početku je accumulator/initialValue 0 i onda mu mozemo npr. dodavati currentValue kao u primjeru dole
+-> u primjeru dole bi to bilo 0(inital)+1(current)+2(current)+3(current)+4(current)
+
+const array1 = [1, 2, 3, 4];
+const reducer = (a, b) => a+b;
+
+// 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer));
+// expected output: 10
+
+// 5 + 1 + 2 + 3 + 4
+console.log(array1.reduce(reducer, 5));
+// expected output: 15
+---------------------------------------------------------
+FOR
+The for statement creates a loop that consists of three optional expressions, enclosed in parentheses and separated by semicolons, 
+followed by a statement (usually a block statement) to be executed in the loop.
+
+primjer1.
+let str = '';
+for (let i = 0; i < 9; i++) {
+  str = str + i;
+}
+console.log(str);
+// expected output: "012345678"
+
+example 2.
+ - ZELIMO SVE BROJEVE IZMEDJU MIN I MAX, SA SEKIM STEPOM
+NPR MIN=2, MAX = 10, STEP JE 2 => 2,4,6,8,10,12
+
+function generateRange(min, max, step){
+  arr=[];
+  for (i =min; i <= max; i += step) {
+   arr.push(i)
+  }
+  return arr;
+}
+------------------------------------------------------------------------------------------
+SPLIT
+The split() method divides a String into an ordered list of substrings, puts these substrings into an array,
+and returns the array.
+
+const str = 'The quick brown fox jumps over the lazy dog.';
+const words = str.split('');    -> Array ["T", "h", "e", " ", "q", "u", "i", "c", "k", " ", "b", "r", "o", "w", "n", " ", "f", "o", "x", " ", "j", "u", "m", "p", "s", " ", "o", "v", "e", "r", " ", "t", "h", "e", " ", "l", "a", "z", "y", " ", "d", "o", "g", "."]
+const words = str.split(' ');   -> Array ["The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog."]
+const words = str.split('k');   -> Array ["The quic", " brown fox jumps over the lazy dog."]
+const strCopy = str.split();    -> Array ["The quick brown fox jumps over the lazy dog."]
+console.log(words[3]);          -> "fox"
+console.log(chars[8]);          -> "K"
+
+.................................................................
+FOREACH
+The forEach() method executes a provided function once for each array element.
+
+const array1 = ['a', 'b', 'c'];
+array1.forEach(element => console.log(element));  -> tu mora biti funckija iza strelice,sto je u ovoj slucaju console.log
+
+// expected output: "a"
+// expected output: "b"
+// expected output: "c"
+.......................................................
+MAP
+The map() method creates a new array populated with the results of calling a provided function on every element in the calling array.
+
+const array1 = [1, 4, 9, 16];
+// pass a function to map
+const map1 = array1.map(x => x * 2);
+console.log(map1);
+// expected output: Array [2, 8, 18, 32]
+............................................................
+FILTER
+The filter() method creates a new array with all elements that pass the test implemented by the provided function.
+
+Example1. 
+.filter((char) => char.match(/[a-z]/)) // filter out all lowercase chars
+.filter((char) => char.match(/[A-Z]/)) // filter out all uppercase chars
+.filter((char) => char.match(/[0-9]/)) // filter out all numbers
+.filter((char) => char.match(/[0]/)) //   filter out all 0
+
+Example 2.
+const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+const result = words.filter(word => word.length > 6);
+console.log(result);
+// expected output: Array ["exuberant", "destruction", "present"]
+----------------------------------------------------------------------------
+FILTER + MAP ISPISATI SVE playere koji su nizi od 200
+
+var niski = players
+  .filter((player) => (player.height < 200))
+  .map((player) => ( <div>
+                            <user.name>
+                     </div>
+                   );
+..................................................................
+SPLIT + MAP
+
+const str = 'you wili win';
+const nesto = str.split(" ").map (x => `${x} ${x.length}`);
+console.log(nesto); //["you 3", "will 4", "win 3"]
+--------------------------------------------------------------
+FOR
+The for statement creates a loop that consists of three optional expressions, enclosed in parentheses and separated by semicolons, followed by a statement (usually a block statement) to be executed in the loop.
+
+for ([initialization]; [condition]; [final-expression])
+   statement
+
+Example 1. ispise broje do 9
+for (let i = 0; i < 9; i++) {
+  if (arr[2] % ) 
+   console.log(i);
+   // more statements
+}
+
+Example 2. ispisuje sve elemente iz arraya ( isto ko array.forEach(e => console.log(e)) )
+function displayElements(array){
+  for (var i=0;i<array.length;i++){
+    console.log(array[i]);
+  }
+}
+-------------------------------------------------------------------------------------------------
+TOSTRING
+The toString() method returns a string representing the object.
+broj= 555;
+console.log(broj.toString())  -> i sada je broj string "555"
+-----------------------------------------------------------------------------------------------
+PARSEINT
+The parseInt() function parses a string argument and returns an integer
+a ="555"
+const b = parseInt(a)
+console.log(b)                 -     -> sada je a=555, integer
+------------------------------------------------------------------------------------------
+SORT ASC/DESC
+
+const months = ['March', 'Jan', 'Feb', 'Dec'];
+months.sort();
+console.log(months);
+// expected output: Array ["Dec", "Feb", "Jan", "March"]
+
+DESC
+months.sort().reverse();
+  const arrNum = num.toString().split('').map(e => parseInt(e)).sort().reverse().join('') ;
+-------------------------------------------------------------------------------------------------------
+JOIN
+
+const elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements.join());
+// expected output: "Fire,Air,Water"
+
+console.log(elements.join(''));
+// expected output: "FireAirWater"
+
+console.log(elements.join('  '));
+// expected output: "Fire  Air  Water"
+
+console.log(elements.join('-'));
+// expected output: "Fire-Air-Water"
+--------------------------------------------------------------------------------------
+REPLACE
+
+STRING -> STRING ONLY LETTERS
+str.replace(/[^a-zA-Z]+/g, '')
+
+PRIMJER 1. izvuci sva slova iz strina
+const a= "abcABC123!@€£#$%^&*()_-+=}{[]|\':;?/>.<,~";
+a.replace(/[^a-zA-Z]+/g, '') -> "abcABC"
+
+Primjer 2. replace replace Microsoft => W3Schools
+.replace("Microsoft", "W3Schools");
+
+Primjer 2. replace . => -
+mystring = mystring.replace(/\./g,'-')
+
+-------------------------------------------------------------------------
+
+PREBROJAVANJA - ako nesto vrijedi(if) povecas npr. count za 1
+
+function lowercaseCount(str){
+ var count = 0;
+for(i = 0; i < str.length; i++){
+    if(str.length == 2 {   
+       count ++;
+    } 
+}
+return count    
+}
+---------------------------------------------------
+SPLICE
+The splice() method changes the original array and returns an array WITHOUT deleted elements.
+
+cars.splice(1,2, "audi") --start at index 1(volvo) and remove 2 items(volvo+bmw), and add "audi")
+cars.splice(1,0, "audi") -- dodaje na index 1 audi
+cars.splice(1,1) -- brise na index 1 item //("Volvo", "BMW");
+------------------------------------------------------------------------
+MATH
+ABSOLUTE
+const res = Math.abs((a.reduce(reducer) - b.reduce(reducer)))
+
+FLOOR
+The Math.floor() function returns the largest integer less than or equal to a given number.
+console.log(Math.floor(5.95)); // expected output: 5
+console.log(Math.floor(5.05)); // expected output: 5
+console.log(Math.floor(-5.05)); // expected output: -6
+
+CEIL - suprotno of floor
+The Math.ceil() function always rounds a number up to the next largest integer.
+console.log(Math.ceil(.95)); // expected output: 1
+console.log(Math.ceil(7.004)); // expected output: 8
+console.log(Math.ceil(-7.004)); // expected output: -7
+-------------------------------------------------------------------------------------------------
+OBJECT.KEYS
+- The Object.keys() method returns an array of a given object's own enumerable property names, 
+  iterated in the same order that a normal loop would.
+
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+--------------------------------------------------------------
+OBJECT.VALUES
+- The Object.values() method returns an array of a given object's own enumerable property values.
+
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.values(object1));
+// expected output: Array ["somestring", 42, false]

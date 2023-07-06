@@ -1,0 +1,135 @@
+.hero {
+  background-color: #000;
+  height: 500px;
+  padding: 50px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 1024px) {
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.hero .row {
+  display: flex;
+  flex-wrap: inherit;
+  overflow: hidden;
+  max-height: 100%;
+}
+@media (max-width: 991px) {
+  .hero .row {
+    flex-wrap: wrap;
+  }
+}
+.hero .row .img {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0;
+  overflow: hidden;
+}
+.hero .row .img img {
+  margin-bottom: 0;
+}
+.hero .row .content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5%;
+  background-color: indigo;
+}
+@media (max-width: 991px) {
+  .hero .row .content {
+    width: 100%;
+  }
+}
+.hero .row .content .content-text {
+  z-index: 50;
+}
+.hero .row .content .Typewriter span {
+  color: #fff;
+  font-size: 50px;
+  font-family: Poppins;
+  font-weight: 700;
+}
+.hero .row .content .Typewriter span.Typewriter__cursor {
+  color: #eb83f8;
+}
+@media (max-width: 991px) {
+  .hero .row .content .glitch {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 20px;
+  }
+  .hero .row .content .Typewriter span {
+    font-size: 20px;
+  }
+}
+@media (max-width: 1024px) {
+  .hero .row .content .glitch {
+    font-size: 40px;
+    line-height: 40px;
+  }
+  .hero .row .content .Typewriter span {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1500px) {
+  .hero .row .content .glitch {
+    font-size: 70px;
+    line-height: 70px;
+  }
+}
+.hero .row .content .button-container {
+  display: flex;
+}
+.hero .row .content .hover-button {
+  margin-top: 20px;
+}
+.hero .row .content .hover-button a {
+  text-decoration: none;
+}
+@media (max-width: 991px) {
+  .hero .row .content {
+    margin: auto;
+  }
+  .hero .row .content .button-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.hero .row .content .float-image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: absolute;
+  width: 50px;
+}
+@media (max-width: 991px) {
+  .hero .row .content .float-image {
+    width: 10px;
+  }
+}
+.hero .row .content .float-image.move-up {
+  animation: up 5s infinite alternate;
+}
+.hero .row .content .float-image.move-down {
+  animation: down 5s infinite alternate;
+}
+@keyframes up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+@keyframes down {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50px);
+  }
+}/*# sourceMappingURL=styles.css.map */

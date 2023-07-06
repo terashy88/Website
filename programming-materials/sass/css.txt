@@ -1,0 +1,392 @@
+CSS
+
+1) INHERITANCE
+- kasnije u css-u applied
+- najbitnije: inline style,pa id,pa .class ili[attribute], pa tag
+- ako imamo: .product h1{} a nakon toga
+             h1{} 
+  ipak ce imati svojstva .product h1 jer je vise specifican. 
+- *{box-sizing:border-box;} global selector
+ 
+- .product h1 { tagret h1 nested in .product }
+         -> <product>
+               <h1>
+
+- a.active { target sve a(linkove), koji imaju klasu active } 
+         -> <a class="main button active">
+
+- mediaquery na kraju ccsa
+--------------------------------------------------
+2) DISPLAY:BLOCK,INLINE,INLINE-BLOCK
+
+- content-> padding ->border ->margin
+
+- every element is box: block or inline-block!
+- <div>:  default display:block;
+
+- margin collapse, bigger margin between elements wins!
+
+  DISPLAY PROPERTIES / TEXT-ALIGN
+
+- DISPLAY:INLINE;  content u liniji, DEFAULT, nije block
+- NE MOZEMO MU STAVIT WIDTH JER NIJE BLOCK
+- ako zelimo box gore/ispod:
+    - display:BLOCK;   jedna kutija ispod druge
+
+- ako zelimo content lj/d:
+    - display:INLINE-BLOCK; kutije jedna kraj druge(LJ-D)
+
+
+- imamo display:inline-block; i sada zelimo kupije desno
+                text-align: right;   ovo right se odnosi na te inline-block kutije
+-------------------------------------------------------
+3) PROPERTIES BOX-SIZING: BORDER BOX;
+
+->    top right bottom left
+border: 5px 6px 7px 8px;
+->  top/bottom right/left
+border: 5px 6px;
+-> evertyhing
+border: 5px;
+
+* { box-sizing:border-box;}
+
+- default box-sizing:content-box;
+         -> when set width/height its w/h of content only, but there's content+border+padding
+
+- we want to set width/height/padding/border of box(width/heigth INCLUDE content+paddind+border)
+         -> box-sizing:border-box;
+-----------------------------------------------
+
+--------------------------------------------------------------
+4) PSEUDO CLASSES / ELEMENTS
+
+- classes: hover, active
+- .product a:hover,
+  .product a:active{}
+
+-elements:: style specific part of element
+- .p a::first-letter{
+        color:red;}
+->pobojna prvo slovo linka a u paragrafu p
+
+- .main a::after{
+	content: " (Link)";
+        color:red;
+}
+->doda Link u html nakon a
+----------------------------------------
+5) BACKGROUND / IMAGE
+
+- .main{
+	background-image:url("../images/pic.jpg");
+        background-size:100px; ili npr 50%
+        background-repeat:no-repeat;  - da se ne ponavlja, bit ce samo 1 mala 100px
+        background-origin: border-box; - da je slika cijela, a ne da broder reze
+         }
+- .main{
+	background-image:url("../images/pic.jpg");
+        background-size:cover;        - stavit ce width 100% i nece biti "white spejsa" u kontejneru gdje stavljamo background-image
+	background-origin: border-box;
+        background-repeat:no-repeat;  
+         }
+- ako zelimo npr Vise neba od slike u background,a manje plaze
+ - .main{
+	background-image:url("../images/pic.jpg");
+        background-size:cover;        - stavit ce width 100% i nece biti "white spejsa" u kontejneru gdje stavljamo background-image
+        background-repeat:no-repeat;
+	background-origin: border-box; 
+	background-position: 0% 10% ; - lievo/desno ne sijece nista, sijece gornjih 10 posto slike(default je 50) -> slika se pomice dolje!
+        ili
+        background-position: center ; sijece sve podjednako, centar slike je sentar covera
+         }
+- sve u jednom redu:  
+	background-image:url("../images/pic.jpg") cover no-repeat border-box;
+  
+    IMAGE
+   <img srce="" alt="">
+- .img{
+	height:22px; - to radi, ali procenti bas i ne 
+        width:100%; ali to nece biti cijeli div nego početna vrednost of slike(npr.128x100px), pa će 100% biti 128px
+          -ako stavimo parent display:inline-block; e onda ce slika biti 100 posto parenta
+- ako imas image u kontejneru(inline-block jer mora) i dobijes "white-space" samo stavis display:block; i nestane
+
+--------------------------------------------
+6) POSITIONING / Z-index
+
+- POSITION:STATIC; 
+  - default-not affected by the top, bottom, left, and right properties 
+  - position ancestor, block level element
+
+- RELATIVE - positioned relative to its normal position 
+           - top/left s obzirom na current position
+
+- ABSOLUT- positioned relative to the nearest positioned ancestor(parent:position: absolute,relative,fixed,sticky) , but not static ancestor
+         - s obzirom na parent koji je positioniran(najblizi)
+         - ako ga nema onda na HTML element
+         - kad stavis top:0px; to znaci da je na vrhu parenta
+         - top/left s obzirom na parent
+
+- FIXED - relative to the viewport, always stays in the same place
+  .menu_stoji_fixiran_bezPraznina_gore-levo-00{
+   position:fixed;
+   margin:0;
+   top:0;
+   left:0;
+   box-sizing:border-box;
+   width:100%;}
+   - top/left s obzirom na parent(viewport)
+
+- STICKY-komba relative i fixed(dobro za navbar)
+        -mozemo staviti udaljenost elementa i viewporta i nakon nje se element ponaša kao fixed ( top:10px; kada skrolas i prodje to nestane/fixed)
+
+
+- Z-INDEX (default 0 )
+- na element koji ima definiran position(npr.fixed, a ne static), okolni elemtni ne moraju
+- ako imamo 2 parenta: .parent-1 z-index:1;
+                       .parent-2 z-index:2;
+       - parent 1 ima chlid-1 z-index:¸1000; -> jos ce uvijek parent 2 biti iznad chlid-1 iako je chlid 1000>2
+- odnosi se na elemente u istom parentu
+                  
+------------------------------------------------------------------------------------------
+7) UNITS
+ 
+  USE
+- root elemet html{font-size:16px; default, mozemo stavit 62.5%;, da bude 1rem:10px;}
+- font-size: rem;
+- border, shadow:px;
+- margin/padding: rem;
+- width/height: %,vh,vw;
+- top/bottom/left/right: %;
+- columns: rows: %
+- images/media files: %,vh,vw,vmin,vmax.(for responsive images we usually use width = 100% and height = auto.)
+
+- px:         border, shadow, smaller details (not for fontSize, oldet browsers dont scale)
+- rem/em:     fontSize, often padding/margin, buttons padding/margin
+- %:          useful for defining layouts and widths,height columns, rows, images
+- vh/vw:      used fot larger layouts     
+  
+  PX
+- ignore user setting(ako user stavi na large nece se nis desit na stranici)
+
+  REM/EM
+- em/rem more dynamic site
+- rem(root em)- paading, margin, font-suze
+            - Relative to font-size of the root element
+            - HTML {font-size: 62.5%; } /* Now `rem` is equivalent to `10px` */
+            - default 16 bybrowser
+            - margin, padding, font-size, (width,height,border,shadow-No)
+            - position:fixed; -px
+- em - Relative to the font-size of the element or closest parent...2em means 2 times the size of the current font... div-15, span u njemu 2em =30
+     - em's are good for buttons, bc it allows us to use flexible spacing around the boxes accoring to font-size of the element. Ak label 12px, pa promjenimo u 15px padding ce se promjenit ako je u em
+     - mostly recommend them for margin and padding because of the issues you might encounter with font sizes.
+- .second{
+   font-size: 12px;
+   padding: 1em;                - now padding/margin is 12px(font-size of the element), but if we remove font-size from .second, and define .fist {font-size: 14px;}
+   margin: 1em;                   then paddings gonna be 14px(closest parent)
+}
+
+- To reset font size for all elements, you can use the universal selector:
+
+* {font-size: 100%; }
+
+  VIEWPORT
+- vh,vw
+- nema veze koji position: ; (kod postotka ima)
+- in case you don't want to display these scrollbars, you can use one of these solutions:
+
+- Use width: 100%  instead of vw: 100
+
+-body: :-webkit-scrollbar {
+    width: 0
+}
+
+   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ - width, height, top, bottom, right, left
+ - pozicioniramo child s obzirom na parent, ovisi kako chlid stavimo position:fixed,absolut,relative, tako ce ovisi % prema cemu se gleda
+ - position:FIXED; -30% s obzirom na VEIWPORT
+ - position:ABSOLUTE; - 30% closest PARENT koji nije static(POSITION:absolut,fixed,sticy,relative), content+padding
+ - position:STATIC, RELATIVE; -30% closest parent BLOK element(displaY:inline;-nije, display:block/inline-block; je) ali samo content, bez padding
+
+-------------------------------------------------------------
+7) AUTO CENTER
+
+- margin:auto; - works with block elements, koji imaju width
+               - horizontal center something like div
+               - ne radi: display:inline, float,position:absolute,fixed; 
+
+- margin: 30px auto; -vertical center and 30px top and bottom margin
+
+-------------------------------------------------------------------------------
+8) RESPONSIVE (viewport+media queries)
+
+ VIEWPORT
+ <head>
+ <meta name="viewport" content="width=device-width initial-scale=1.0">
+ </head>
+
+ MEDIA QUERIES
+ - if(ako vrijedi ovo u zagradi tada se radi {})
+ - ako je width manja od 40rem, tada ovo u {}
+ - zarez(ili), and (i) -> , or and
+ - idu na kraju css-a cisto da se lakse nadju
+ 
+- @media (max-width:40rem), (orientation:landscape;) {
+	#product-overview-h1{
+		font-size:3rem;}
+        .product-overview{
+		font-size:2rem;
+                text-align:center; - da centrira sve product-overview-h1}
+ }
+
+- desktop: display:inline-block; npr3 njih- svaki 30% (3horizontalni)
+           width: 30%;
+           vertical-align:middle;
+           max-width: 500px;
+           box-shadow;
+           text-align: center; - to je na parentu, u mobile nam ne treba
+- mobile: display:block; 
+          width:100%; (1 horizontalno, i ostali 2 ispod njega)
+          vertical-align(ne trebamo vise)
+          min-width: 250px;
+          maknuti shadow ako ga ima na desktop jer zgleda glupo
+------------------------------------------
+.input[type="email"]{
+} -target elements with input class that have email attribute
+
+----------------------------------------------
+
+-------------------------------------------------------------------------
+
+
+.input [type="email"]{
+} -target elements that have email attribute nested in input class
+
+
+.signup-form input[type="checkbox"] {}
+
+-select input with type equal to email
+-------------------------------------------------------------------------------------
+
+
+Footer,Nav,Main-positioning
+nav height:3.5rem;
+main height:calc(100vh-3.5rem(nav)-5rem(footer));
+     margin-top:3.5rem;
+footer height:5rem;
+---------------------------------------
+IMPORT GOOGLE FONT u css
+@import url('https://fonts.gooo');
+
+.h1{
+ color: black;
+ &:hover:white ---ko da pise .h1:hover {}
+ 
+}
+......................
+jos hoovera primjer
+- kada prodjemo div, moraju se promjenit boje diva i p i h3,
+  i kad dodatno prodjemo u divu preko p/h3 onda se oni promene u trecu boju
+  
+<div class="card>
+ <p>
+ <h3>
+</div>
+
+.card:hover {
+  width: 360px;
+  height: 250px;
+  background-color: #1d1d1d;
+  padding-left: 51px;
+  padding-top: 57px;
+  color: white;
+
+  p,
+  h3 {
+    color: #525252;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+............................................
+9. ONFOCUS/ONBLUR
+
+example 1. direct in input
+<input
+	type="text"
+	onFocus={ () => {console.log('input', 'focus');} }
+	onBlur={ () => {console.log('input', 'blur');} }
+/>
+----------------------------------------
+Example 2. separate function
+const onBlurFunc = () => {
+    console.log("Blured");
+  };
+
+<input type="text" onBlur={onBlurFunc} />
+---------------------------------------------------
+Example 3. conditional
+
+export default function CreditCardForm(props) {
+
+  const [ccNumber, setCcNumber] = useState("");                                 -> useState ccNumber
+  const ccNumberRef = useRef(null);                                             -> useRef ccNumberRef
+                                             ->useRef
+  useEffect(() => {
+    ccNumberRef.current && ccNumberRef.current.focus();                         -> after page is loaded focus on ccNumberRef field  
+  }, [props.isLoading]);
+
+  useEffect(() => {
+    if (ccNumber.length === 16) {                                               -> after ccNumber.length===16 focus is on expiryInputRef field
+      expiryInputRef.current.focus();
+    }
+  }, [ccNumber.length]);
+
+  const onChangeCcNumber = (e) => {                                             -> onChange func for ccNumber      
+    setCcNumber(e.target.value);
+  };
+
+  const [expiry, setExpiry] = useState("");                                     -||-                                   
+  const expiryInputRef = useRef(null);
+  
+  const onChangeExpiry = (e) => {
+    setExpiry(e.target.value);
+  };
+
+
+
+  if (props.isLoading) {
+    return <h1>loading state...</h1>;
+  }
+
+<input
+          type="text"
+          maxLength={16}                              -after lenght 16 move to anotger input
+          value={ccNumber} 
+          onChange={onChangeCcNumber}
+          ref={ccNumberRef}
+          //Method 2: HTML input autoFocus attribute
+          // autoFocus
+        />
+      </div>
+      <div>
+        <label>Expiry</label>
+        <input
+          type="text"
+          maxLength={4}                               -after length 4 move to another if you want(same ass ccNumbre example)
+          value={expiry}
+          onChange={onChangeExpiry}
+          ref={expiryInputRef}
+        />
+      </div>
+----------------------------------------------
+Example 4. css :onFocus, :onBlur ne postoji -> :not(:focus)
+
+input:not(:focus), button:not(:focus) {
+    /* Styles for only form inputs and buttons that do not have focus */
+}
+-------------------------------------------------------------------------
+
+

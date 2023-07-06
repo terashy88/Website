@@ -1,0 +1,122 @@
+FORMS
+-<input>, <select>, <textarea)
+-update is based on user input
+
+-in React: state ->setState (to update)
+---------------------------------------------
+VALUE-state, setState(handleChange)
+     -npr.username
+     -prvo ga npr.nema(state)
+     
+
+ class Forms  extends Component {
+   state = {
+        username: ''
+    }
+    handleChange = (event) => {
+        this.setState( {username: event.target.value} )
+    }
+    render() {
+        return (
+            <div>
+                <h1>Demo form</h1>
+                <input 
+                   type="text" 
+                   value={this.state.username}
+                   onChange={this.handleChange}
+                />
+            </div>
+--------------------------------------------------
+SUBMIT-handleSubmit
+      -reset the value after(usually)
+      -preventDefaulz(); da ne refresha nakon submita
+
+ class Forms  extends Component {
+
+    state = {
+        username: ''
+    }
+
+    handleChange = (event) => {
+        this.setState( {username: event.target.value} )
+    }
+
+    handleSubmit = (evt) => {
+	evt.preventDefault();
+        alert(`you typed: ${this.state.username}`);
+        this.setState({username: ''});          /* reset the value of username */
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Demo form</h1>
+                <form onSubmit={this.handleSubmit}> 
+                    <input 
+                    type="text" 
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    />
+                    <button>Submit!</button>  {/* on a click handleSubmit is called */}
+                </form>   
+            </div>
+---------------------------------------------------------------------
+MULTIPLE INPUTS-name, [event.target.name]..da nemamo puno handleChange
+               -id (htmlFor) (mora biti : id  = htmlFor)
+
+    state = {
+        username: '',
+        email: '',
+        password: ''
+    }
+
+    handleChange = (event) => {
+        this.setState( { [event.target.name] : event.target.value} )
+    }
+
+    handleSubmit = (evt) => {
+        evt.preventDefault(); /* PREVENT REFRESH AFRER SUBMIT */
+        alert(`you typed: ${this.state.username}`);
+        this.setState({username: ''});          /* reset the value of username */
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Demo form</h1>
+                <form onSubmit={this.handleSubmit}>
+
+                    <label htmlFor="username">Username: </label>
+                    <input 
+                    type="text"
+                    id="username" 
+                    name='username'  /* da ne koristimo svai put novi handleChange, nego [evt.target.name] */
+                    value={this.state.username}
+                    onChange={this.handleChange}
+                    />
+
+                    <label htmlFor="email">Username: </label>
+                    <input 
+                    type='email' 
+                    id="email"
+                    name='email'
+                    placeholder='email' 
+                    value={this.state.email}
+                    onChange={this.handleChange} 
+                    />
+                    
+                    <label htmlFor="password">Username: </label>
+                    <input 
+                    type='password' 
+                    id="password"
+                    name='password'
+                    placeholder='password' 
+                    value={this.state.password}
+                    onChange={this.handleChange} 
+                    />
+                    
+                    <button>Submit!</button>  {/* on a click handleSubmit is called */}
+                </form>   
+            </div>
+ 
+

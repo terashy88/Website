@@ -1,0 +1,16 @@
+export let words = [
+  { eng: "animal", de: "tiere", fr: "animaux" },
+  { eng: "house", de: "haus", fr: "loger" },
+  { eng: "family", de: "familie", fr: "famille" },
+  { eng: "cat", de: "katze", fr: "chatte" },
+];
+
+console.log(words.map(word => word.eng))
+(4) ["animal", "house", "family", "cat"]
+
+ali ako ima dinamicki "eng", "de"
+onda:
+
+console.log(words.map(word => word[language]))
+-> to je isto kao da pise
+console.log(words.map(word => word["eng"]))

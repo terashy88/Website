@@ -1,0 +1,64 @@
+PROMISES - then/catch
+
+//definiramo Promise
+const promise1 = new Promise((resolve, reject) => {
+  let a= 1+1;
+  if (a==2) {
+    resolve("sucess")
+  }
+  else{
+  reject ("faileddd")
+  }
+  
+});
+
+//koristimo
+promise1.then((value) => {                                               -> then + resolve
+  console.log(value);                                                    -> then je kada je true Promise/prolazi nesto na backend
+  // expected output: "Success!"
+});
+//then + resolve
+//u then se ispise sto smo stavili u resolve value="Success!"
+
+promise1.catch((error) => {                                              -> catch + reject
+  console.error(error);                                                  -> catch kada je false Promise/ne prolazi na backend
+});
+//catch + reject
+//u catch se ispise sto smo stavili u reject error="Faileddd!"
+
+//sve u jednom 
+promise1.then((value) => {
+  console.log(value);                                                    -> then/catch u jednom
+  // expected output: "Success!"
+}).catch((error) => {
+  console.error(error);
+});
+..................................................................
+EXAMPLE PROMISE IN FUNCTION
+fetch('coffee.jpg')
+.then(response => {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response;
+})
+.then(message => {
+   console.log(message)
+})
+.catch(e => {
+  console.log('There has been a problem with your fetch operation: ' + e.message);
+});
+-----------------------------------------------------------------
+ASYNC AWAIT
+async function f() {
+
+  try {
+    let response = await fetch('/no-user-here');          -ako tu ima greska, ispisuje se u catch
+    let user = await response.json();
+  } catch(err) {
+    // catches errors both in fetch and response.json
+    alert(err);
+  }
+}
+
+f();

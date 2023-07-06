@@ -1,0 +1,43 @@
+HTMLFOR
+
+The for attribute is used in labels. It refers to the id of the element this label is associated with.
+example:
+<label for="username">Username</label>
+<input type="text" id="username" name="username" />
+----------------------------------------------------------------------------------------------------------
+JSON.parse() - parse/rastvoriti
+
+The JSON.parse() method parses a JSON string, constructing the JavaScript value or object described by the string. 
+const json = '{"result":true, "count":42, "ime":"mihael"}';
+const obj = JSON.parse(json);
+
+console.log(obj.result);
+// expected output: true
+console.log(obj.count);
+// expected output: 42
+console.log(obj.ime);
+// expected output: "mihael"
+----------------------------------------------------------------------------
+JSON.stringify()
+
+The JSON.stringify() method converts a JavaScript object or value to a JSON string
+
+
+console.log(JSON.stringify(15));
+// expected output: 15
+
+console.log(JSON.stringify([new Number(3), new String('false'), new Boolean(false)]));
+// expected output: "[3,"false",false]"
+console.log(JSON.stringify({ x: "ivan", y: 6 }));
+// expected output: "{"x":"ivan","y":6}"
+--------------------------------------------------------------------------------------------
+PARSEINT
+
+console.log(parseInt('15'));
+// expected output: 15
+--------------------------------------------------------------------------
+DOM
+When a web page is loaded, the browser creates a Document Object Model(DOM) of the page.
+A DOM element is something like a DIV, HTML, BODY element on a page. You can add classes to all of these using CSS, or interact with them using JS.
+
+The HTML DOM model is constructed as a tree of Objects:DIV, HTML, BODY, HEAD,A,H1,DIV

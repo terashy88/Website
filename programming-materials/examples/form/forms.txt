@@ -1,0 +1,176 @@
+FORMS
+- input, textarea, dropdown, select, checkbox, radiobutton
+-update is based on user input
+
+-in React: state ->setState (to update)
+---------------------------------------------
+//form
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");                ->inputs
+  const [email, setEmail] = useState("");
+  const [passw, setPassw] = useState("");
+  const [passw, setPassw] = useState("");
+  const [dropdown, setDropdown] = useState("");              ->dropdown/select
+  const [isChecked, setIsChecked] = useState(false);         ->checkbox
+  const [radio, setRadio] = useState("apple");               ->radio
+
+
+  const submitForm = () => {
+    var user = {
+      firstName: name,
+      lastName: surname,
+      email: email,
+      password: passw,
+      dropdownValue: dropdown,
+      checkboxValue: isChecked,
+      radioButtonValue: radio
+    };
+    console.log(user);
+  };
+
+return (
+ {/* FORM */}
+      <h1>FORM</h1>
+      <form onSubmit={submitForm}>
+        <label>name</label>
+        <input
+          type="text"
+          id="name"
+          onChange={(e) => {
+            setName(e.target.value);                               -> inputs
+          }}
+        />
+        <label>surname</label>
+        <input
+          type="text"
+          id="surname"
+          onChange={(e) => {
+            setSurname(e.target.value);
+          }}
+        />
+        <label>email</label>
+        <input
+          type="text"
+          id="email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <label>password</label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => {                                      -> inputs
+            setPassw(e.target.value);
+          }}
+        />
+
+       <label>Dropdown value is {dropdown}</label>
+       <select 
+          value={dropdown}
+          onChange={(e) => {
+            setDropdown(e.target.value);                           -> dropdown
+          }} 
+       >
+            <option value="apple">apple</option>
+            <option value="orange">orange</option>
+            <option value="banana">banana</option>
+       </select>  
+
+      <label>Checkbox is: {isCkecked ? "true" : "false "}</label>  
+      <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={(e) => {                                      -> checkbox
+            setIsChecked(e.target.checked);
+          }}
+        />
+
+      <label>Apple: </label>  
+      <input
+          type="radio"
+          checked={radio === "apple"}                             -> if cheched value is apple, that mean that apple is current value that has to be checked 
+          value="apple"
+          onChange={(e) => {                                      -> radio
+            setRadio(e.target.value);
+          }}
+        />
+    <label>Orange: </label>  
+    <input
+          type="radio"
+          checked={radio === "orange"}                             
+          value="orange"
+          onChange={(e) => {                                      -> radio
+            setRadio(e.target.value);
+          }}
+        />
+    <label>Banana: </label>  
+    <input
+          type="radio"
+          checked={radio === "banana"}                             -> if cheched value is banana, that mean that banana is current value that has to be checked 
+          value="banana"
+          onChange={(e) => {                                      -> radio
+            setRadio(e.target.value);
+          }}
+        />
+
+        <button onClick={submitForm}>submit</button>
+      </form>
+----------------------------------------------------------------------
+CUSTOM COMPONENT- ako imamo dupliciran kod u parentu ga slozimo u Childu
+
+PARENT
+
+import React from "react";
+import {useForm} from 'react-hook-form'
+import { FormInput } from "./FormInput";
+
+export const LoginForm = () => {
+  const {register, handleSubmit, errors} = useForm({
+  })
+
+  const onSubmit = ({login, password}) => {
+    alert(`Login: ${login}, password: ${password}`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormInput                                               -> SALJEMO PROPS U CHILDREN
+        id="login"
+        name="login"
+        type="text"
+        label="Login"
+        register={register}
+        error={errors.login}
+      />
+      <FormInput 
+        id="password"
+        type="password"
+        name="password"
+        label="Password"
+        register={register}
+        error={errors.password}
+      />
+      <button type="submit">Log in</button>
+    </form>
+  );
+};
+
+--------------------------------
+CHILD-FormInput.js
+
+import React from 'react'
+
+export const FormInput = ({register, errors, label, id, ...inputProps}) => {    -> props koje dobijemo od parenta
+  return <>
+    <label htmlFor={id}>{label}</label>
+    <input
+      ref={register}                                                            -> KORISTIMO PROPSE
+      id={id}
+      name="password"
+      type="password"
+    />
+    {errors.password && <div>{errors.password.message}</div>} 
+  </>
+}
+

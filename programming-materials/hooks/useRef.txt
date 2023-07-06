@@ -1,0 +1,98 @@
+USEREF
+->It is very similar to useState , but it doesn’t cause a component to re-render when changed.
+
+-> Essentially, useRef is like a “box” that can hold a mutable value in its .current property.
+> works because useRef() creates a plain JavaScript object. 
+
+https://javascript.plainenglish.io/the-react-useref-hook-explained-with-examples-3bc759c0b105
+
+- 3 BIG USECASES: 1) no rerender component, and manipulate with bom:
+                  2) FOCUS and
+                  3) TO HAVE PREVIOUS AND CURRENT STATE)
+
+CONCLUSION
+It allows you to access DOM elements directly, 
+and persist data between renders without causing a component to re-render infinitely when changes.
+
+const myRef = useRef(0);                 -> DEFINIRAMO
+console.log(myRef);
+// { current: 0 }                         -> it has current prop
+
+  const ref1 = useRef();
+  const ref2 = useRef(2021);
+  console.log(ref1, ref2);
+// { current: undefined, current:2021 }     -> current prop
+
+
+Similir to USESTATE
+
+Example . You want to count the number of times a component re-renders.
+USESTATE
+function StateExample() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setCount(prevCount => prevCount + 1);
+  });
+
+  return <div>{count}</div>;
+}
+
+REF EXAMPLE
+import React, { useRef } from 'react';
+
+
+function RefExample() {
+  const count = useRef(0);            -> definiramo, current(pocetni) je 0
+
+  useEffect(() => {
+    count.current = count.current + 1;
+  });
+
+  return <div>{count.current}</div>;
+}
+-----------------------------------------------------------------------
+Example 2. One of the most common use cases of the hook useRef in React is to reference a DOM element.             DOM EXAMPLE 1. FOCUS
+
+Since every DOM element has a property ref , we can use the hook useRef for setting a ref to that element.
+
+const Reference = ()=> {
+  const inputRef = useRef(null)
+
+  const focusInput = () => {
+    inputRef.current.focus()
+  }
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={focusInput}>Focus on the Input</button>
+    </>
+  )
+}
+-----------------------------------------------------------------------
+Example 3.Another use case of refs is for the storage that is persisted across component renders. 
+For example, with refs, we can store the previous value of a state variable.                                     DOM EXAMPLE 1. to have PREVIOUS STATE and SURRENT STATE
+
+import { useEffect, useState, useRef } from "react";
+import "./styles.css";
+const AppDemo13 = () => {
+  console.log("render");
+  const [count, setCount] = useState(0);
+  // Get the previous value (was passed into hook on last render)
+  const ref = useRef();
+  // Store current value in ref
+  useEffect(() => {
+    console.log("useEffect");
+    ref.current = count;
+  }, [count]); // Only re-run if value changes
+  return (
+    <div className="App">
+      <h1>
+        Now: {count}, before: {ref.current}
+      </h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+
+--------------------------------------------------------------------

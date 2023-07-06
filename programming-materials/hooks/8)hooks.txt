@@ -1,0 +1,260 @@
+ HOOKS( useState, useEffect...)
+- zamjuenjuje Class komponente i koristi se samo Functional component
+- ime: useXyz
+-------------------------------------
+ USESTATE
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+
+ ISTO
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}
+----------------------------------------------------------------
+ MULTIPLE STATE AND UPDATING
+
+const [allValues, setAllValues] = useState({
+   mobile: '',
+   username: '',
+   email: '',
+   password: '',
+   confirmPassword: ''
+});
+const changeHandler = e => {
+   setAllValues({...allValues, [e.target.name]: e.target.value})
+}
+return (
+   <input type="text"
+       className="form-control"
+       id="mobile"
+       name="mobile"
+       placeholder="Enter a valid mobile number"
+       onChange={changeHandler}
+   />
+   // ...
+)
+--------------------------------------------------------
+ USEEFFECT (3slucaja)
+- componentDidMount,componentDidUpdate...
+
+Example 1.
+
+-  useEffect(() => {
+    console.log("mihael")
+  };
+
+- ispise mihael svaki put kada nesto napravimo na app(svaki klik npr)
+- everything inside this arrow function will be render everysimgle time app renders
+---------------------------------------------------------------------------------------
+Example 2.
+  useEffect(() => {
+    console.log("mihael")
+  }, [resourceType]);
+
+- whenever resourceType changes, we are going to rerun this hook again
+----------------------------------------------------------------------------------------
+Example 3.
+
+  useEffect(() => {
+    console.log("mihael")
+  }, []);
+
+- isto kao onMount
+- samo kada se pokrene app se ispise mihael, i nikad vise
+---------------------------------------------------------------------------------------------------
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+ ISTO
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  componentDidMount() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+  componentDidUpdate() {
+    document.title = `You clicked ${this.state.count} times`;
+  }
+
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+          Click me
+        </button>
+      </div>
+    );
+  }
+}-----------------------------------------------------------------------
+ PRIMJER BEZ USEEFFECT
+class FriendStatus extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isOnline: null };
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+  }
+
+  componentDidMount() {
+    ChatAPI.subscribeToFriendStatus(
+      this.props.friend.id,
+      this.handleStatusChange
+    );
+  }
+  componentWillUnmount() {
+    ChatAPI.unsubscribeFromFriendStatus(
+      this.props.friend.id,
+      this.handleStatusChange
+    );
+  }
+  handleStatusChange(status) {
+    this.setState({
+      isOnline: status.isOnline
+    });
+  }
+
+  render() {
+    if (this.state.isOnline === null) {
+      return 'Loading...';
+    }
+    return this.state.isOnline ? 'Online' : 'Offline';
+  }
+}
+  ISTO
+import React, { useState, useEffect } from 'react';
+
+function FriendStatus(props) {
+  const [isOnline, setIsOnline] = useState(null);
+
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+
+  if (isOnline === null) {
+    return 'Loading...';
+  }
+  return isOnline ? 'Online' : 'Offline';
+}
+----------------------------------------------------------------
+ USECONTEXT
+const themes = {
+  light: {
+    foreground: "#000000",
+    background: "#eeeeee"
+  },
+  dark: {
+    foreground: "#ffffff",
+    background: "#222222"
+  }
+};
+
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button style={{ background: theme.background, color: theme.foreground }}>
+      I am styled by theme context!
+    </button>
+  );
+}
+------------------------------------------------------------------------
+USEREF
+- usecase: when you click button its gonna focus input field
+
+import React, { useState, useEffect,useRef } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <input ref="inputRef" name="email"/>               -> tu ce stavit fokus 
+      <button onClick={() => {
+          setCount(count + 1);
+          inputRef.current.focus();                      -> kada kliknemo ovaj button, poveca broj i stavi fokus na input
+      }}>
+        Focus
+      </button>
+    </div>
+  );
+}
+----------------------------------------------------------------
+USEHISTORY

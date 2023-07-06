@@ -1,0 +1,54 @@
+1. terminal:
+npm install node-sass --save
+
+2. project setup:
+a) App.js
+	import './App.scss';
+
+b) App.scss
+	@import 'styles/variables';
+	@import 'styles/header';
+	@import 'styles/listings';
+	@import 'styles/content-area';
+	@import 'styles/flexbox';
+
+* {
+    box-sizing: border-box;
+}
+
+c) _variables.scss
+        $darkpurple: #0c002b;
+	$grey: #faf7f5;
+	$softwhite: #fffeff;
+	$pink: #ff718e;
+	$darkgrey: #ada8aa;
+	$lightgrey: #d1cbcd;
+
+3.sass css povezati s scss
+-  imamo main.css i main.scss, i sada da ih povezemo u terminal: sass main.scss main.css
+
+4. skraceno
+- umjesto flex-direction:column;
+          flex-wrap:nowrap;
+- mozemo: flex {
+                 direction:column}
+                 wrap:nowrap;
+5.variables
+- $darkpurple: #0c002b;
+- $border: 2px solid red;
+- $size-defaut:1rem; 
+  .border {padding: 2*size-default; }
+
+5. mixins
+
+ najprije definiras npr. display-flex()
+@mixin display-flex() {
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display-flex;
+}
+
+ koristis
+.container {
+            @include display-flex();}
+ 

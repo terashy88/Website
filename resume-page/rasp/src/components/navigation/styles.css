@@ -1,0 +1,108 @@
+.navigation {
+  position: fixed;
+  width: 30%;
+  height: 100%;
+  z-index: -1000;
+  background-color: #000;
+  height: 100%;
+  z-index: 1000;
+  border-right: 2px solid #fff;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: 0.5s;
+  visibility: hidden;
+}
+@media (max-width: 768px) {
+  .navigation {
+    width: 100%;
+  }
+}
+.navigation.active {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 1000;
+  visibility: visible;
+}
+.navigation .closeNav {
+  color: #eb83f8;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.navigation .closeNav:hover {
+  color: #fff;
+}
+.navigation .logo {
+  max-width: 100px;
+  margin: 50px auto;
+}
+.navigation ul {
+  padding: 0;
+}
+.navigation ul li {
+  font-size: 20px;
+  margin: 20px 0;
+  text-align: center;
+  list-style: none;
+  cursor: pointer;
+  padding-bottom: 5px;
+  position: relative;
+}
+.navigation ul li button {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+}
+.navigation ul li button:focus {
+  outline: none;
+}
+.navigation ul li:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  visibility: hidden;
+  background-color: #eb83f8;
+  transition: all 0.3s ease;
+  transform: scaleX(0);
+}
+.navigation ul li:hover:after, .navigation ul li.active:after {
+  visibility: visible;
+  transform: scaleX(1);
+}
+.navigation .social_icons {
+  display: flex;
+  justify-content: center;
+}
+.navigation .social_icons .social_icon {
+  font-size: 45px;
+  color: #fff;
+  margin-right: 10px;
+  transition: 0.2s;
+  cursor: pointer;
+  margin-top: 30PX;
+}
+.navigation .social_icons .social_icon:hover {
+  color: #eb83f8;
+}
+
+.opener {
+  position: fixed;
+  left: 25px;
+  top: 25px;
+  z-index: 50;
+}
+.opener svg {
+  color: #fff;
+  font-size: 40px;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.opener svg:hover {
+  color: #eb83f8;
+}/*# sourceMappingURL=styles.css.map */

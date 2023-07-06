@@ -1,0 +1,62 @@
+ Material ui
+- ubiti material design for react
+
+1) npm install @material-ui/core
+   npm install @material-ui/icons
+
+  
+   material-ui koristi roboto font/icone svoje pa ga mozeno stavit u public/index.html
+   <title>React App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+...............................
+<Grid container justify="center" alignItems="center"> --> centrira ove items u gridu(SVE)
+<Grid item md={4}>
+<Grid item md={4} style={{textAlign: "center" }}>     --> centrira content u items, npr.ikonu u items(ima i drugi nacin da sve item pretvorimo u flex container)
+<Grid item md={4}>
+<Grid item md={8}>
+<Grid item md={2}>
+
+
+</Grid>
+
+GRID
+
+ SVI ELEMENTI
+.container{ justify-items: center;           svi lokalno u gridu! lj/d centrira u tom grid area...  center,stretch,start,end
+            align-items: center;             svi lokalno u gridu! g/d(vertical)  centrira 
+            justify-content: center;         cijeli grid(sve u njemu) centrira u parentu!    npr. body-parent, container-grid -> centrira se container u body  
+            align-content: center;           cijeli grid vertical
+
+ POJEDINAČNI
+.el2{      justify-self:center;
+           align-self: center;  
+
+FLEXBOX
+
+grid container -> grid item                             -> ikona u grid item i tu ikonu zelimo centrirat
+
+grid container -> grid item/pretvorimo u flex container -> ikona u grid item/flex item
+
+- mozem <GRID ITEM> pretvoriti u flexbox
+- <Grid item md={4} className="item">
+-display:flex; na npr <div>
+              - > kada stavis display:flex; pretvoris element u flex container/parent
+              - > elementi u flex cointaineru su flex items/children
+
+i sada je sve u itemu(npr.ikonica) flex items!
+.item{display:flex;
+      - flex-direction:row;
+    align-items:center; centrira s obzirom g/d
+    jusitfy-content:center; centrira s obziron na lj/d}
+----------------------------------------------------------
+CSS
+- ILI INLINE STYLE: <AppBar style={{ background:"green", color:"red" }}>
+
+- ILI U CSS-U:
+               - samo .app-bar ne radi ali:
+               1) inspect element i vidi se da je <AppBar> ubiti <header class="app-bar">
+               2) u css filu: header.app-bar{background:green;}
+Primjer
+p.intro.nesto ->	Selects all <p> elements with class="intro nesto"

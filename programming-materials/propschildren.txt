@@ -1,0 +1,19 @@
+props.children
+-wrap content in component
+-compo has some css 
+
+npr. radimo message wrap oko nekih sadrzaja
+
+class meseage eextends Component {
+  render() {
+	 RETURN <div className='Message'>
+                {this.prop.children} 
+                </div> 	
+	}
+}
+
+neki sadrzaj
+impor message from
+<message>
+nesto
+</message>

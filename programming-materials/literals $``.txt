@@ -1,0 +1,19 @@
+Literals template
+
+template npr. ${1+1}
+
+let name='John';
+
+function upperCase(word) {
+	return word.tuUpperCase();
+}
+
+Ako sada zelimo to koristit:
+-navodnici: ´´ (backticks)
+- ${}
+
+<i className={`Dice fas fa-dice-${this.props.face} 
+               ${this.props.rolling ? 'shaking' : '' }`}/>
+
+let template =
+<h1>${name}, ${upperCase('hello')}</h1>

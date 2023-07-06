@@ -1,0 +1,12 @@
+UUID- for unique Keys
+    . index is not good always
+
+1. npm install uuid
+2.import uuid from "uuid/v4";
+3.state = {
+      items: [
+        { name: "Milk", qty: "2 gallons", id: uuid() },
+        { name: "Bread", qty: "2 loaves", id: uuid() }
+      ]
+    };
+4.
