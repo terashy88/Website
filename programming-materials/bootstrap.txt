@@ -1,9 +1,0 @@
-bootstrap
-
-npm install react-bootstrap bootstrap
-
-index.js
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "bootstrap"
-
-(ako nema npm install --save jquery popper.js)
